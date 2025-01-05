@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+ <div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white text-center">
+                <h2>{{ recipe.title }}</h2>
+            </div>
+            <div class="card-body">
+                <h5 class="card-subtitle mb-3 text-muted">
+                    Créé par : <strong>{{ recipe.createdBy.username }}</strong>
+                </h5>
+                <p class="card-text">{{ recipe.content }}</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Durée de préparation : </strong> {{ recipe.duration }} minutes</li>
+                    <li class="list-group-item"><strong>Date de création : </strong> {{ recipe.createdAt|date("d/m/Y") }}</li>
+                    <li class="list-group-item"><strong>Dernière mise à jour : </strong> {{ recipe.updatedAt|date("d/m/Y") }}</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a href="{{ path('recipe.index') }}" class="btn btn-secondary">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
