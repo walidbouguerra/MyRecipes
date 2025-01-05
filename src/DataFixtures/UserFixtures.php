@@ -22,14 +22,16 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setRoles(['ROLE_ADMIN'])
             ->setEmail('admin@demo.fr')
-            ->setPassword($this->passwordHasher->hashPassword($user, 'admin'));
+            ->setPassword($this->passwordHasher->hashPassword($user, 'admin'))
+            ->setUsername('Admin');
         $manager->persist($user);
 
         // 10 Users
         for ($i = 0; $i < 10; $i++) {
             $user = new User();
             $user->setEmail($faker->unique()->email)
-                ->setPassword($this->passwordHasher->hashPassword($user, 'test'));
+                ->setPassword($this->passwordHasher->hashPassword($user, 'test'))
+                ->setUsername($faker->firstName());
             $manager->persist($user);
             $this->addReference('USER' . $i, $user);
         }
