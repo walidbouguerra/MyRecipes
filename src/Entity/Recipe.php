@@ -32,6 +32,14 @@ class Recipe
     #[ORM\Column(nullable: true)]
     private ?int $duration = null;
 
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $createdBy = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +113,30 @@ class Recipe
     public function setDuration(?int $duration): static
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): static
+    {
+        $this->createdBy = $createdBy;
 
         return $this;
     }
