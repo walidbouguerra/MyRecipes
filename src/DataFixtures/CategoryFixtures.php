@@ -28,7 +28,7 @@ class CategoryFixtures extends Fixture
         for ($i=0; $i < count($categories); $i++) { 
             $category = (new Category())
             ->setName($categories[$i])
-            ->setSlug($this->slugger->slug($categories[$i]))
+            ->setSlug($this->slugger->slug($categories[$i])->lower())
             ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
             ->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()));
         $manager->persist($category);

@@ -6,16 +6,22 @@ use App\Entity\Category;
 use App\Entity\Recipe;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use FakerRestaurant\Provider\fr_FR\Restaurant;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class RecipeFixtures extends Fixture
+class RecipeFixtures extends Fixture implements DependentFixtureInterface
 { 
     public function __construct(private readonly SluggerInterface $slugger) 
     {
         
+    }
+
+    public function getDependencies(): array
+    {
+       return [UserFixtures::class, CategoryFixtures::class]; 
     }
 
     public function load(ObjectManager $manager): void
@@ -29,7 +35,7 @@ class RecipeFixtures extends Fixture
             $recipe = (new Recipe())
                 ->setCategory($this->getReference('CATEGORY' . $faker->numberBetween(0,2), Category::class))
                 ->setTitle($title)
-                ->setSlug($this->slugger->slug($title))
+                ->setSlug($this->slugger->slug($title)->lower())
                 ->setContent($faker->paragraphs(10, true))
                 ->setDuration($faker->numberBetween(10, 60))
                 ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
