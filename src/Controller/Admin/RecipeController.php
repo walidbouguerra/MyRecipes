@@ -36,7 +36,7 @@ class RecipeController extends AbstractController
             return $this->redirectToRoute('app_recipe_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('recipe/new.html.twig', [
+        return $this->render('admin/recipe/new.html.twig', [
             'recipe' => $recipe,
             'form' => $form,
         ]);
