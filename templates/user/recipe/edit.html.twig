@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Recipe{% endblock %}
+
+{% block body %}
+    <h1>Edit Recipe</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">Edit</button>
+    {{ form_end(form) }}
+    <a href="{{ path('user.recipe.show', {'id': recipe.id, 'slug': recipe.slug}) }}">back to list</a>
+{% endblock %}

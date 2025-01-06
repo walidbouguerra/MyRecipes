@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Mes recettes{% endblock %}
 
 {% block body %}
-<h1 class="text-center mb-4">Recettes</h1>
+<h1 class="text-center mb-4">Mes Recettes</h1>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     {% for recipe in recipes %}
     <div class="col">
@@ -21,7 +21,7 @@
                 </ul>
             </div>
             <div class="card-footer">
-                <a href="{{ path('recipe.show', {'slug': recipe.slug, 'id': recipe.id}) }}" class="btn btn-primary btn-sm">
+                <a href="{{ path('user.recipe.show', {'slug': recipe.slug, 'id': recipe.id}) }}" class="btn btn-primary btn-sm">
                     Voir la recette
                 </a>
             </div>

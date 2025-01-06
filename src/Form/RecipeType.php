@@ -17,16 +17,12 @@ class RecipeType extends AbstractType
             ->add('title')
             ->add('slug')
             ->add('content')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
+            ->add('duration', null, [
+                'label' => 'Duration (min)'
             ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('duration')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
         ;
     }

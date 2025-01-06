@@ -18,7 +18,7 @@
                 {% if is_granted('ROLE_ADMIN') %}
                      {% include 'admin/navbar.html.twig' %}
                 {% else %}
-                    {% include 'security/navbar.html.twig' %}
+                    {% include 'user/navbar.html.twig' %}
                 {% endif %}
             {% else %}
                     {% include 'navbar.html.twig' %}

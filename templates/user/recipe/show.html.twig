@@ -20,9 +20,13 @@
                     <li class="list-group-item"><strong>Dernière mise à jour : </strong> {{ recipe.updatedAt|date("d/m/Y") }}</li>
                 </ul>
             </div>
-            <div class="card-footer d-flex">
-                <a href="{{ path('recipe.index') }}" class="btn btn-secondary">Retour à la liste</a>
-                <a href="{{ path('recipe.pdf', {'id': recipe.id}) }}" class="btn btn-primary ms-auto">Télécharger</a>
+            <div class="card-footer d-flex justify-content-between">
+                <a href="{{ path('user.recipe.index') }}" class="btn btn-secondary">Retour à la liste</a>
+                <a href="{{ path('recipe.pdf', {'id': recipe.id}) }}" class="btn btn-primary">Télécharger</a>
+                <div class="d-flex">
+                    <a href="{{ path('user.recipe.edit', {'id': recipe.id}) }}" class="btn btn-success me-2">Modifier</a>
+                    {{ include('user/recipe/_delete_form.html.twig') }}
+                </div>
             </div>
         </div>
     </div>
