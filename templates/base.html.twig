@@ -13,7 +13,17 @@
         {% endblock %}
     </head>
     <body>
-        {% include 'navbar.html.twig' %}
+        {% block navbar %}
+            {% if app.user %}
+                {% if is_granted('ROLE_ADMIN') %}
+                     {% include 'admin/navbar.html.twig' %}
+                {% else %}
+                    {% include 'security/navbar.html.twig' %}
+                {% endif %}
+            {% else %}
+                    {% include 'navbar.html.twig' %}
+            {% endif %}
+        {% endblock %}
         <div class="container my-4">
             {% block body %}{% endblock %}
         </div>

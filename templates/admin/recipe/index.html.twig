@@ -29,8 +29,8 @@
                 <td>{{ recipe.updatedAt ? recipe.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ recipe.duration }}</td>
                 <td>
-                    <a href="{{ path('app_recipe_show', {'id': recipe.id}) }}">show</a>
-                    <a href="{{ path('app_recipe_edit', {'id': recipe.id}) }}">edit</a>
+                    <a href="{{ path('recipe.show', {'slug': recipe.slug, 'id': recipe.id}) }}">show</a>
+                    <a href="{{ path('admin.recipe.edit', {'id': recipe.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -41,5 +41,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_recipe_new') }}">Create new</a>
+    <a href="{{ path('admin.recipe.new') }}">Create new</a>
 {% endblock %}

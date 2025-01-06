@@ -11,13 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/admin/recipe', name: 'admin.recipe.')]
+#[Route('/admin/recettes', name: 'admin.recipe.')]
 class RecipeController extends AbstractController
 {
     #[Route(name: 'index', methods: ['GET'])]
     public function index(RecipeRepository $recipeRepository): Response
     {
-        return $this->render('recipe/index.html.twig', [
+        return $this->render('admin/recipe/index.html.twig', [
             'recipes' => $recipeRepository->findAll(),
         ]);
     }
