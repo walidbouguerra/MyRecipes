@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/user/recettes', name: 'user.recipe.')]
 class UserRecipeController extends AbstractController
@@ -32,13 +33,17 @@ class UserRecipeController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $recipe->setSlug($slugger->slug($recipe->getTitle())->lower());
+            $recipe->setUpdatedAt(new \DateTimeImmutable());
+            $recipe->setCreatedAt(new \DateTimeImmutable());
+            $recipe->setCreatedBy($this->getUser());
             $entityManager->persist($recipe);
             $entityManager->flush();
 
@@ -52,12 +57,13 @@ class UserRecipeController extends AbstractController
     }   
 
     #[Route('/{id}/edit', name: 'edit')]
-    public function edit(Request $request, Recipe $recipe, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Recipe $recipe, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $recipe->setSlug($slugger->slug($recipe->getTitle())->lower());
             $recipe->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->flush();
 

@@ -13,6 +13,14 @@
         <li>
             <a class="nav-link px-2 {{ app.current_route starts with 'recipe.' ? 'link-secondary' : '' }}" href="{{ path('recipe.index') }}">Recettes</a>
         </li>
+        <li class="nav-item dropdown px-2 {{ app.current_route starts with 'recipe.' ? 'link-secondary' : '' }}">
+            <a class="nav-link dropdown-toggle show" href="{{ path('recipe.index') }}" data-bs-toggle="dropdown" aria-expanded="true">Recettes</a>
+            <ul class="dropdown-menu show" data-bs-popper="static">
+              <li><a class="dropdown-item" href="{{ path('recipe.category.index', {'slug': 'entrees'}) }}">Entrées</a></li>
+              <li><a class="dropdown-item" href="{{ path('recipe.category.index', {'slug': 'plats'}) }}">Plats</a></li>
+              <li><a class="dropdown-item" href="{{ path('recipe.category.index', {'slug': 'desserts'}) }}">Desserts</a></li>
+            </ul>
+        </li>
       </ul>
 
       <div class="col-md-3 text-end">

@@ -15,7 +15,6 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('slug')
             ->add('content')
             ->add('duration', null, [
                 'label' => 'Duration (min)'

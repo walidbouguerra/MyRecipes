@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des catégories{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1>Liste des Catégories</h1>
+        <a href="{{ path('category.new') }}" class="btn btn-success mb-3">Créer une nouvelle catégorie</a>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Slug</th>
+                    <th>Créée le</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.name }}</td>
+                        <td>{{ category.slug }}</td>
+                        <td>{{ category.createdAt ? category.createdAt|date('d/m/Y H:i') : 'N/A' }}</td>
+                        <td>
+                            <a href="{{ path('category.edit', { id: category.id }) }}" class="btn btn-primary btn-sm">Modifier</a>
+                            <form method="post" action="{{ path('category.delete', { id: category.id }) }}" onsubmit="return confirm('Êtes-vous sûr ?');" style="display: inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                                <button class="btn btn-danger btn-sm">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Aucune catégorie trouvée.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

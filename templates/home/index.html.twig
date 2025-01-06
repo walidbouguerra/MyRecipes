@@ -9,7 +9,10 @@
             <h1 class="display-4 fw-bold lh-1 mb-4">Découvrez des recettes savoureuses pour toutes les occasions</h1>
             <p class="lead mb-4">Préparez des plats délicieux et équilibrés avec nos recettes faciles à suivre. Que vous soyez novice en cuisine ou chef confirmé, trouvez l’inspiration pour régaler vos proches grâce à une variété de recettes, des entrées aux desserts.</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <a class="btn btn-primary btn-lg px-4" href="{{ path('recipe.index') }}">Explorer les recettes</a>
+                <a class="btn btn-primary btn-lg px-4 me-2" href="{{ path('recipe.index') }}">Explorer les recettes</a>
+                <a class="btn btn-outline-secondary btn-lg px-4" href="{% if is_granted('IS_AUTHENTICATED_FULLY') %}{{ path('user.recipe.new') }}{% else %}{{ path('login') }}{% endif %}">
+                    Partager une recette
+                </a>
             </div>
         </div>
         <div class="col-lg-6 text-center">
