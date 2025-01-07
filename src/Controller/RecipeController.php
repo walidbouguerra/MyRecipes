@@ -18,14 +18,23 @@ class RecipeController extends AbstractController
     {
         return $this->render('recipe/index.html.twig', [
             'recipes' => $recipeRepository->findAll(),
+            'title' => 'Toutes les recettes'
         ]);
     }
 
     #[Route('/{slug}', name: 'category.index', requirements: ['slug' => Requirement::ASCII_SLUG])]
     public function categoryIndex(string $slug, RecipeRepository $recipeRepository): Response
     {
+        $title = match ($slug) {
+            'entrees' => 'Entrées',
+            'plats' => 'Plats',
+            'desserts' => 'Desserts',
+            default => 'Recettes'
+        };
+
         return $this->render('recipe/index.html.twig', [
             'recipes' => $recipeRepository->findByCategorySlug($slug),
+            'title' => $title
         ]);
     }
     
@@ -33,7 +42,7 @@ class RecipeController extends AbstractController
     public function show(Recipe $recipe): Response
     {
         return $this->render('recipe/show.html.twig', [
-            'recipe' => $recipe,
+            'recipe' => $recipe
         ]);
     }
 
@@ -41,7 +50,7 @@ class RecipeController extends AbstractController
     public function pdf(Recipe $recipe, \Knp\Snappy\Pdf $knpSnappyPdf)
     {
         $html = $this->renderView('recipe/pdf.html.twig', array(
-            'recipe' => $recipe,
+            'recipe' => $recipe
         ));
 
         return new PdfResponse(

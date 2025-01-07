@@ -12,8 +12,6 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home.index')]
     public function index(CategoryRepository $categoryRepository): Response
     {
-        return $this->render('home/index.html.twig', [
-            'categories' => $categoryRepository->findByCategory()
-        ]);
+        return $this->render('home/index.html.twig');
     }
 }
