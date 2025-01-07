@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/user/recettes', name: 'user.recipe.')]
@@ -24,6 +25,7 @@ class UserRecipeController extends AbstractController
         ]);
     }
 
+    #[IsGranted('view', 'recipe')]
     #[Route('/{slug}-{id}', name: 'show', requirements: ['slug' => Requirement::ASCII_SLUG ,'id' => Requirement::DIGITS], methods: ['GET'])]
     public function show(Recipe $recipe): Response
     {
@@ -56,6 +58,7 @@ class UserRecipeController extends AbstractController
         ]);
     }   
 
+    #[IsGranted('edit', 'recipe')]
     #[Route('/{id}/edit', name: 'edit')]
     public function edit(Request $request, Recipe $recipe, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {

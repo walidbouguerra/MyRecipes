@@ -22,6 +22,15 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    #[Route('/{slug}-{id}', name: 'show', requirements: ['slug' => Requirement::ASCII_SLUG ,'id' => Requirement::DIGITS], methods: ['GET'])]
+    public function show(Recipe $recipe): Response
+    {
+        return $this->render('recipe/show.html.twig', [
+            'recipe' => $recipe
+        ]);
+    }
+
+
     #[Route('/{slug}', name: 'category.index', requirements: ['slug' => Requirement::ASCII_SLUG])]
     public function categoryIndex(string $slug, RecipeRepository $recipeRepository): Response
     {
@@ -38,14 +47,6 @@ class RecipeController extends AbstractController
         ]);
     }
     
-    #[Route('/{slug}-{id}', name: 'show', requirements: ['slug' => Requirement::ASCII_SLUG ,'id' => Requirement::DIGITS], methods: ['GET'])]
-    public function show(Recipe $recipe): Response
-    {
-        return $this->render('recipe/show.html.twig', [
-            'recipe' => $recipe
-        ]);
-    }
-
     #[Route('/{id}/pdf', name: 'pdf')]
     public function pdf(Recipe $recipe, \Knp\Snappy\Pdf $knpSnappyPdf)
     {
@@ -55,7 +56,7 @@ class RecipeController extends AbstractController
 
         return new PdfResponse(
             $knpSnappyPdf->getOutputFromHtml($html),
-            'file.pdf'
+            $recipe->getSlug().'.pdf'
         );
     }
 }

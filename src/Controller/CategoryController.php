@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/category', name: 'category.')]
+#[Route('admin/category', name: 'category.')]
 class CategoryController extends AbstractController
 {
     #[Route('/', name: 'index')]
